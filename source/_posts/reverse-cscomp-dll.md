@@ -48,7 +48,7 @@ xor dex,0之后跳转到代码末尾，进一步解密
 {% asset_img CFF-Explorer.png %}  
 IDA查看Loader函数  
 {% asset_img loader.png call Loader%}  
-与meterpreter一样，是一个reflective loader，事先已计算好Loader函数与当前指令地址，call ebx处，即是call Loader
+与meterpreter一样，是一个reflective dll loader，事先已计算好Loader函数与当前指令地址的偏移。call ebx处，即是call Loader
 
 
 
