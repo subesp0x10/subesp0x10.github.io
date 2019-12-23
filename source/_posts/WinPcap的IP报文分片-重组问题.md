@@ -1,15 +1,15 @@
 ---
 title: WinPcap的IP报文分片/重组问题
 date: 2019-10-03 00:12:43
-tags: Note
-categories: Note
+tags: note
+categories: note
 ---
 
 做XX项目的一个程序，需要A电脑上的一个程序发送UDP数据到X地址，在B电脑上使用WinPcap抓到这些数据包。
 
 
 一开始发现自己的程序抓下来的包打印出来不对（字符串），但是Wireshark能正常打印。
-```
+```c
 pcap_next_ex(handle, &header, &pkt_data);
 ```
 查看pkt_data内存发现每隔一段地址就会插入一些奇怪的数据，计算开头到奇怪数据的间隔，得到1472，Google之，发现是MTU：

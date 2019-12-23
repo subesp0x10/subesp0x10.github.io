@@ -1,7 +1,7 @@
 ---
 title: python
 date: 2019-11-19 22:54:16
-tags: Note
+tags: note
 ---
 
 ## pip

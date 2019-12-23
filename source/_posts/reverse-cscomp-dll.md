@@ -1,10 +1,12 @@
 ---
-title: Malware Analyse:cscomp.dll
+title: Malware Analyse 1 --- cscomp
 date: 2019-07-29 07:00:36
-tags: Reverse
-categories: Reverse
+tags: reverse
+categories: reverse
 ---
-此样本包含3个文件：csc.exe，cscomp.dll以及cscomp.rom。其中，csc.exe是微软.net组件，Visual C# Command Line Compiler；cscomp.dll为恶意DLL，利用DLL劫持，使csc.exe启动时被调用；cscomp.rom是一个加密文件。
+恶意程序样本共有3个文件：csc.exe，cscomp.dll以及cscomp.rom。
+{% asset_img sample.png sample%}  
+其中，csc.exe是微软.net组件，Visual C# Command Line Compiler；cscomp.dll为恶意DLL，利用DLL劫持，使csc.exe启动时被调用；cscomp.rom是一个加密文件。
 ## 运行
 {% asset_img run.png run%}  
 <!--more-->
@@ -14,7 +16,9 @@ categories: Reverse
 DLL有3个导出函数  
 {% asset_img export.png DLL Export %}  
 其中CreateCompilerFactory，InMemoryCompile反编译为  
-```return 1```
+```c
+return 1
+```
 
 因此只分析GetMessageDll  
   

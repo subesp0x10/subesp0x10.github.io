@@ -1,8 +1,8 @@
 ---
 title: SSH Tunnel
 date: 2019-10-03 00:02:11
-tags: Note
-categories: Note
+tags: note
+categories: note
 ---
 
 ## 0x00 动态端口转发

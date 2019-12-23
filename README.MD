@@ -8,5 +8,5 @@ npm install
 npm install hexo-deployer-git  
 
 hexo g  
-hexo "new post"
+hexo new "some post"
 ```
