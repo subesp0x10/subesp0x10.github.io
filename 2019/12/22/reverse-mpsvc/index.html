@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Malware Analyse 2 --- mpsvc | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="恶意程序样本：    利用签名程序微软Microsoft Malware Protection的DLL劫持">
+<meta name="keywords" content="reverse">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Malware Analyse 2 --- mpsvc">
+<meta property="og:url" content="http://yoursite.com/2019/12/22/reverse-mpsvc/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="恶意程序样本：    利用签名程序微软Microsoft Malware Protection的DLL劫持">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/12/22/reverse-mpsvc/sample.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/22/reverse-mpsvc/dllmain.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/22/reverse-mpsvc/antidebug.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/22/reverse-mpsvc/callexport.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/22/reverse-mpsvc/nop.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/22/reverse-mpsvc/readfile.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/22/reverse-mpsvc/jump_to_shellcode.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/22/reverse-mpsvc/junkcode.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/22/reverse-mpsvc/geteip.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/22/reverse-mpsvc/search_kernel32.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/22/reverse-mpsvc/decrypt1.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/22/reverse-mpsvc/decrypt2.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/22/reverse-mpsvc/decrypt3.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/22/reverse-mpsvc/virtualalloc1.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/22/reverse-mpsvc/rtldecompressbuffer.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/22/reverse-mpsvc/peheader1.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/22/reverse-mpsvc/peheader2.png">
+<meta property="og:updated_time" content="2019-12-23T14:04:38.309Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Malware Analyse 2 --- mpsvc">
+<meta name="twitter:description" content="恶意程序样本：    利用签名程序微软Microsoft Malware Protection的DLL劫持">
+<meta name="twitter:image" content="http://yoursite.com/2019/12/22/reverse-mpsvc/sample.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-reverse-mpsvc" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/22/reverse-mpsvc/" class="article-date">
+  <time datetime="2019-12-23T01:13:57.000Z" itemprop="datePublished">2019-12-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/reverse/">reverse</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Malware Analyse 2 --- mpsvc
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>恶意程序样本：</p>
+<img src="/2019/12/22/reverse-mpsvc/sample.png" title="sample">  
+<p>利用签名程序微软Microsoft Malware Protection的DLL劫持</p>
+<a id="more"></a>
+<h2 id="mpsvc-dll分析"><a href="#mpsvc-dll分析" class="headerlink" title="mpsvc.dll分析"></a>mpsvc.dll分析</h2><h3 id="IDA分析"><a href="#IDA分析" class="headerlink" title="IDA分析"></a>IDA分析</h3><p>导出函数有<font color="blue">DllMain</font>和<font color="blue">ServiceCrtMain</font><br>DllMain有些垃圾代码</p>
+<img src="/2019/12/22/reverse-mpsvc/dllmain.png" title="dllmain">  
+<p>实际上就是 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>ServiceCrtMain：<br>一段反调试代码</p>
+<img src="/2019/12/22/reverse-mpsvc/antidebug.png" title="antidebug">  
+<p>检查MsMpEng.exe模块地址+0xE730处的值是否为0x4cbeh，只有当前进程为MsMpEng.exe才能继续执行</p>
+<h3 id="动态调试"><a href="#动态调试" class="headerlink" title="动态调试"></a>动态调试</h3><p>使用OllyDBG的call explort功能直接对DLL调试</p>
+<img src="/2019/12/22/reverse-mpsvc/callexport.png">  
+<p>把反调试部分改为nop</p>
+<img src="/2019/12/22/reverse-mpsvc/nop.png">  
+<p>进入之后，首先获取shellcode：读取当前目录下的mpsvc.ui文件。从开始到偏移0x217是一个字符串，\0之后是shellcode开始<br>使用strlen计算字符串的长度，返回shellcode起始地址</p>
+<img src="/2019/12/22/reverse-mpsvc/readfile.png">  
+<p>进入shellcode</p>
+<img src="/2019/12/22/reverse-mpsvc/jump_to_shellcode.png"> 
+<p>很多花指令，遇到call一律F7</p>
+<img src="/2019/12/22/reverse-mpsvc/junkcode.png">  
+<p>call $+5，取EIP</p>
+<img src="/2019/12/22/reverse-mpsvc/geteip.png">  
+<p>一路经过很多call之后，最后终于call到shellcode末尾，开始寻找kernel32.dll以及所需的函数，搜索了VirtualAlloc，VirtualFree，VirtualProtect，RtlDecompressBuffer，memcpy</p>
+<img src="/2019/12/22/reverse-mpsvc/search_kernel32.png">  
+<p>搜索函数之后，解密了一段长度为0x10的代码，解密的起始地址是调用当前函数的call指令的下一条指令</p>
+<img src="/2019/12/22/reverse-mpsvc/decrypt1.png">  
+<img src="/2019/12/22/reverse-mpsvc/decrypt2.png">  
+<img src="/2019/12/22/reverse-mpsvc/decrypt3.png"> 
+<p>转换成C语言</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">DWORD x = *(DWORD*)begin;</span><br><span class="line">DWORD a,b,c,d = x;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">16</span>;i++)</span><br><span class="line">&#123;</span><br><span class="line">    a = a + (a &gt;&gt; <span class="number">3</span>) - <span class="number">1448498774</span>;</span><br><span class="line">    b = b + (b &gt;&gt; <span class="number">5</span>) - <span class="number">909522486</span>;</span><br><span class="line">    c = <span class="number">-127</span> * c + <span class="number">1465341783</span>;</span><br><span class="line">    d = <span class="number">-511</span> * d - <span class="number">1987475063</span>;</span><br><span class="line">    begin[i] = (a + b + c + d) ^ *((<span class="keyword">char</span> *)begin + i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解密的4个字节，第1个再加0x10是第一次调用VirtualAlloc时的大小，第2个是第二次调用VirtualAlloc时的大小<br>第一次调用VirtualAlloc</p>
+<img src="/2019/12/22/reverse-mpsvc/virtualalloc1.png">  
+<p>之后是同样的解密算法，解密同样的起始地址，解密长度为第1个VirtualAlloc的大小</p>
+<p>第二次VirtualAlloc后，调用RtlDecompressBuffer解压，起始地址为之前解密地址+0x10</p>
+<img src="/2019/12/22/reverse-mpsvc/rtldecompressbuffer.png">  
+<p>接下来就比较有意思了，实际上解压后已经是一个PE文件了，附近已经能够看到.text，.rdata字样<br>结合代码也可以看出这里开始就是PE加载的过程</p>
+<img src="/2019/12/22/reverse-mpsvc/peheader1.png">  
+<img src="/2019/12/22/reverse-mpsvc/peheader2.png">  
+<p>PE加载过程就不仔细看了<br>最后可以把PE文件提取出来，修复PE头。大概看了一下，是个自带提权功能的DLL木马</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/22/reverse-mpsvc/" data-id="ck4iilbly000c68k2w8a2r0z6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reverse/">reverse</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/11/19/python/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">python</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/note/">note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/reverse/">reverse</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reverse/">reverse</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/note/" style="font-size: 20px;">note</a> <a href="/tags/reverse/" style="font-size: 10px;">reverse</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/12/22/reverse-mpsvc/">Malware Analyse 2 --- mpsvc</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/19/python/">python</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/03/WinPcap的IP报文分片-重组问题/">WinPcap的IP报文分片/重组问题</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/03/C-CommandLineParser/">C# CommandLineParser</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/03/SSH-Tunnel/">SSH Tunnel</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

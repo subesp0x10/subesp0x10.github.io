@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>SSH Tunnel | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="0x00 动态端口转发ssh -fNDg 1080 -p 45678 root@x.x.x.x -f 后台运行 -N 不执行远程指令 -D 动态端口转发 -g 监听0.0.0.0:1080，可内网共用 然后就可以用socks5连接本地127.0.0.1:1080了 0x01 本地端口转发ssh -L 1081:x.x.x.x:3128 -fNg root@x.x.x.x -p 45678 意思是：">
+<meta name="keywords" content="note">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSH Tunnel">
+<meta property="og:url" content="http://yoursite.com/2019/10/03/SSH-Tunnel/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="0x00 动态端口转发ssh -fNDg 1080 -p 45678 root@x.x.x.x -f 后台运行 -N 不执行远程指令 -D 动态端口转发 -g 监听0.0.0.0:1080，可内网共用 然后就可以用socks5连接本地127.0.0.1:1080了 0x01 本地端口转发ssh -L 1081:x.x.x.x:3128 -fNg root@x.x.x.x -p 45678 意思是：">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-12-23T01:15:30.398Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SSH Tunnel">
+<meta name="twitter:description" content="0x00 动态端口转发ssh -fNDg 1080 -p 45678 root@x.x.x.x -f 后台运行 -N 不执行远程指令 -D 动态端口转发 -g 监听0.0.0.0:1080，可内网共用 然后就可以用socks5连接本地127.0.0.1:1080了 0x01 本地端口转发ssh -L 1081:x.x.x.x:3128 -fNg root@x.x.x.x -p 45678 意思是：">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-SSH-Tunnel" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/03/SSH-Tunnel/" class="article-date">
+  <time datetime="2019-10-03T07:02:11.000Z" itemprop="datePublished">2019-10-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/note/">note</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SSH Tunnel
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="0x00-动态端口转发"><a href="#0x00-动态端口转发" class="headerlink" title="0x00 动态端口转发"></a>0x00 动态端口转发</h2><p>ssh -fNDg 1080 -p 45678 <a href="mailto:root@x.x.x.x" target="_blank" rel="noopener">root@x.x.x.x</a></p>
+<p>-f 后台运行</p>
+<p>-N 不执行远程指令</p>
+<p>-D 动态端口转发</p>
+<p>-g 监听0.0.0.0:1080，可内网共用</p>
+<p>然后就可以用socks5连接本地127.0.0.1:1080了</p>
+<h2 id="0x01-本地端口转发"><a href="#0x01-本地端口转发" class="headerlink" title="0x01 本地端口转发"></a>0x01 本地端口转发</h2><p>ssh -L 1081:x.x.x.x:3128 -fNg <a href="mailto:root@x.x.x.x" target="_blank" rel="noopener">root@x.x.x.x</a> -p 45678</p>
+<p>意思是：本地的1081端口，通过x.x.x.x这台服务器再转到x.x.x.x的3128端口</p>
+<p>需要先在远程Linux服务器上搭一个Squid代理，并设置允许来自x.x.x.x的连接：</p>
+<p>acl localnet src x.x.x.x</p>
+<p>http_access allow localnet</p>
+<p>（此处或许有更好的方法）</p>
+<p>最后设置代理服务器为127.0.0.1:1080，协议为http</p>
+<h2 id="0x02-ssh免密登录"><a href="#0x02-ssh免密登录" class="headerlink" title="0x02 ssh免密登录"></a>0x02 ssh免密登录</h2><p>ssh-keygen -t rsa</p>
+<p>生成：</p>
+<p>私钥文件id_rsa</p>
+<p>公钥文件id_rsa.pub</p>
+<p>scp id_rsa.pub <a href="mailto:root@x.x.x.x" target="_blank" rel="noopener">root@x.x.x.x</a>:/home/User/.ssh/</p>
+<p>cat id_rsa.pub &gt;&gt; authorized_keys</p>
+<p>chmod 600 authorized_keys</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/03/SSH-Tunnel/" data-id="ck4iilbl8000168k2wdd1puxi" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/note/">note</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/10/03/C-CommandLineParser/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          C# CommandLineParser
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/29/reverse-cscomp-dll/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Malware Analyse 1 --- cscomp</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/note/">note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/reverse/">reverse</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reverse/">reverse</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/note/" style="font-size: 20px;">note</a> <a href="/tags/reverse/" style="font-size: 10px;">reverse</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/12/22/reverse-mpsvc/">Malware Analyse 2 --- mpsvc</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/19/python/">python</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/03/WinPcap的IP报文分片-重组问题/">WinPcap的IP报文分片/重组问题</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/03/C-CommandLineParser/">C# CommandLineParser</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/03/SSH-Tunnel/">SSH Tunnel</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
