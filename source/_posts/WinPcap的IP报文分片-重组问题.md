@@ -5,7 +5,7 @@ tags: note
 categories: note
 ---
 
-做XX项目的一个程序，需要A电脑上的一个程序发送UDP数据到X地址，在B电脑上使用WinPcap抓到这些数据包。
+项目需求：要A电脑上的一个程序发送UDP数据到X地址，在B电脑上使用WinPcap抓到这些数据包。
 
 
 一开始发现自己的程序抓下来的包打印出来不对（字符串），但是Wireshark能正常打印。
