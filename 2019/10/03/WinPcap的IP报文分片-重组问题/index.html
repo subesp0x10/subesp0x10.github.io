@@ -7,18 +7,18 @@
   
   <title>WinPcap的IP报文分片/重组问题 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="做XX项目的一个程序，需要A电脑上的一个程序发送UDP数据到X地址，在B电脑上使用WinPcap抓到这些数据包。 一开始发现自己的程序抓下来的包打印出来不对（字符串），但是Wireshark能正常打印。 1pcap_next_ex(handle, &amp;amp;header, &amp;amp;pkt_data);  查看pkt_data内存发现每隔一段地址就会插入一些奇怪的数据，计算开头到奇怪数据的间隔，得">
+  <meta name="description" content="项目需求：要A电脑上的一个程序发送UDP数据到X地址，在B电脑上使用WinPcap抓到这些数据包。 一开始发现自己的程序抓下来的包打印出来不对（字符串），但是Wireshark能正常打印。 1pcap_next_ex(handle, &amp;amp;header, &amp;amp;pkt_data);  查看pkt_data内存发现每隔一段地址就会插入一些奇怪的数据，计算开头到奇怪数据的间隔，得到1472，G">
 <meta name="keywords" content="note">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WinPcap的IP报文分片&#x2F;重组问题">
 <meta property="og:url" content="http://yoursite.com/2019/10/03/WinPcap的IP报文分片-重组问题/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="做XX项目的一个程序，需要A电脑上的一个程序发送UDP数据到X地址，在B电脑上使用WinPcap抓到这些数据包。 一开始发现自己的程序抓下来的包打印出来不对（字符串），但是Wireshark能正常打印。 1pcap_next_ex(handle, &amp;amp;header, &amp;amp;pkt_data);  查看pkt_data内存发现每隔一段地址就会插入一些奇怪的数据，计算开头到奇怪数据的间隔，得">
+<meta property="og:description" content="项目需求：要A电脑上的一个程序发送UDP数据到X地址，在B电脑上使用WinPcap抓到这些数据包。 一开始发现自己的程序抓下来的包打印出来不对（字符串），但是Wireshark能正常打印。 1pcap_next_ex(handle, &amp;amp;header, &amp;amp;pkt_data);  查看pkt_data内存发现每隔一段地址就会插入一些奇怪的数据，计算开头到奇怪数据的间隔，得到1472，G">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-12-25T06:55:57.754Z">
+<meta property="og:updated_time" content="2019-12-26T08:51:26.223Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WinPcap的IP报文分片&#x2F;重组问题">
-<meta name="twitter:description" content="做XX项目的一个程序，需要A电脑上的一个程序发送UDP数据到X地址，在B电脑上使用WinPcap抓到这些数据包。 一开始发现自己的程序抓下来的包打印出来不对（字符串），但是Wireshark能正常打印。 1pcap_next_ex(handle, &amp;amp;header, &amp;amp;pkt_data);  查看pkt_data内存发现每隔一段地址就会插入一些奇怪的数据，计算开头到奇怪数据的间隔，得">
+<meta name="twitter:description" content="项目需求：要A电脑上的一个程序发送UDP数据到X地址，在B电脑上使用WinPcap抓到这些数据包。 一开始发现自己的程序抓下来的包打印出来不对（字符串），但是Wireshark能正常打印。 1pcap_next_ex(handle, &amp;amp;header, &amp;amp;pkt_data);  查看pkt_data内存发现每隔一段地址就会插入一些奇怪的数据，计算开头到奇怪数据的间隔，得到1472，G">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -91,7 +91,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>做XX项目的一个程序，需要A电脑上的一个程序发送UDP数据到X地址，在B电脑上使用WinPcap抓到这些数据包。</p>
+        <p>项目需求：要A电脑上的一个程序发送UDP数据到X地址，在B电脑上使用WinPcap抓到这些数据包。</p>
 <p>一开始发现自己的程序抓下来的包打印出来不对（字符串），但是Wireshark能正常打印。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pcap_next_ex(handle, &amp;header, &amp;pkt_data);</span><br></pre></td></tr></table></figure>
 
@@ -119,7 +119,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/03/WinPcap的IP报文分片-重组问题/" data-id="ck4m5m0620004zok2elvo06e2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/03/WinPcap的IP报文分片-重组问题/" data-id="ck4mhopdx00014wk2ye2f5c1m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/note/">note</a></li></ul>
@@ -178,7 +178,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/note/" style="font-size: 20px;">note</a> <a href="/tags/reverse/" style="font-size: 10px;">reverse</a>
+      <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/reverse/" style="font-size: 10px;">reverse</a>
     </div>
   </div>
 
@@ -200,6 +200,10 @@
       <ul>
         
           <li>
+            <a href="/2019/12/26/reverse-mcinsupd/">Malware Analyse 4 --- stack trace</a>
+          </li>
+        
+          <li>
             <a href="/2019/12/25/reverse-bdreinit/">Malware Analyse 3 --- bdreninit dll hijacking</a>
           </li>
         
@@ -213,10 +217,6 @@
         
           <li>
             <a href="/2019/10/03/WinPcap的IP报文分片-重组问题/">WinPcap的IP报文分片/重组问题</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/03/C-CommandLineParser/">C# CommandLineParser</a>
           </li>
         
       </ul>
