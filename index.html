@@ -62,6 +62,55 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-reverse-bdreinit" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/25/reverse-bdreinit/" class="article-date">
+  <time datetime="2019-12-26T02:00:41.000Z" itemprop="datePublished">2019-12-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/reverse/">reverse</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/25/reverse-bdreinit/">Malware Analyse 3 --- bdreninit dll hijacking</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>恶意程序样本：</p>
+<img src="/2019/12/25/reverse-bdreinit/sample.png" title="sample">  
+<p>利用bitdefender组件<font color="blue">bdreinit.exe</font>的DLL劫持</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/12/25/reverse-bdreinit/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/25/reverse-bdreinit/" data-id="ck4m5m06g000azok25una70l6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reverse/">reverse</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-reverse-mpsvc" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/12/22/reverse-mpsvc/" class="article-date">
@@ -99,7 +148,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/22/reverse-mpsvc/" data-id="ck4iilbly000c68k2w8a2r0z6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/12/22/reverse-mpsvc/" data-id="ck4m5m06o000hzok2fv9ipaph" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reverse/">reverse</a></li></ul>
@@ -143,7 +192,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/19/python/" data-id="ck4iilblq000668k2q3q7zyip" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/19/python/" data-id="ck4m5m06b0006zok2iklui9gh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/note/">note</a></li></ul>
@@ -187,26 +236,15 @@
 
 <p>查看pkt_data内存发现每隔一段地址就会插入一些奇怪的数据，计算开头到奇怪数据的间隔，得到1472，Google之，发现是MTU：</p>
 <p>以太网MTU是1500字节，1500-IP头（20字节）-（UDP头）8字节=1472，搞清楚问题出在哪里了，下面就是解决问题。</p>
-<p>一、简单粗暴，每次发送的UDP数据不要超过1472，经测试可行。</p>
-<p>二、尝试自己重组？</p>
-<p>1.调用1次pcap_next_ex（），处理完pkt_data指向的所有数据？</p>
-<p>此时header.len=1514，即这个包的大小是1514。而pkt_data指向的内存看似包含了所有数据，上面说到的”奇怪数据“，是22字节的未知数据+ether_header+ip_header+udp_header，不好处理</p>
-<p>2.调试发现，假设IP包分成10块，那么pcap_next_ex（）就会调用10次，所以1次处理完是不行的。但是这10次又有一个坑：</p>
-<p>第一次，pkt_data指向ether_header+ip_header+udp_header+data，其中ip包的fragment_offset为0</p>
-<p>第二次，pkt_data指向ether_header+ip_header+data，那么UDP头哪儿去了？fragment_offset为1480/8，正确</p>
-<p>。。。</p>
-<p>So 看起来像是这样：</p>
-<p>那22字节可能是WinPcap组包分隔符，其实第一次已经抓完了，后面的10次循环是根据分隔符遍历。</p>
-<p>不知道怎么插入大图片，点击看图  </p>
-<a href="/2019/10/03/WinPcap的IP报文分片-重组问题/1.png" title="Wireshark">Wireshark</a>  
-<a href="/2019/10/03/WinPcap的IP报文分片-重组问题/2.png" title="Code">Code</a> 
-
-
-
+        
+          <p class="article-more-link">
+            <a href="/2019/10/03/WinPcap的IP报文分片-重组问题/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/03/WinPcap的IP报文分片-重组问题/" data-id="ck4iilblf000468k25i85b399" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/03/WinPcap的IP报文分片-重组问题/" data-id="ck4m5m0620004zok2elvo06e2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/note/">note</a></li></ul>
@@ -245,13 +283,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p><a href="https://www.nuget.org/packages/CommandLineParser/" target="_blank" rel="noopener">https://www.nuget.org/packages/CommandLineParser/</a></p>
-<h2 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Options</span><br><span class="line">&#123;</span><br><span class="line">  [Option(&apos;i&apos;, &quot;input&quot;, Required = true, HelpText = &quot;help text&quot;)]</span><br><span class="line">  public string input &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">  [Option(&apos;o&apos;, &quot;output&quot;, Required = true, HelpText = &quot;help text&quot;)]</span><br><span class="line">  public string output &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">  Parser.Default.ParseArguments&lt;Options&gt;(args)</span><br><span class="line">    .WithNotParsed(errs =&gt; HandleErrors(errs))</span><br><span class="line">    .WithParsed(opts =&gt; RunOptions(opts));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+        
+          <p class="article-more-link">
+            <a href="/2019/10/03/C-CommandLineParser/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/03/C-CommandLineParser/" data-id="ck4iilbkz000068k2f6h6d7m5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/03/C-CommandLineParser/" data-id="ck4m5m05q0000zok2848ia6z9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/note/">note</a></li></ul>
@@ -313,7 +353,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/03/SSH-Tunnel/" data-id="ck4iilbl8000168k2wdd1puxi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/03/SSH-Tunnel/" data-id="ck4m5m05y0001zok20ki8s35x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/note/">note</a></li></ul>
@@ -352,9 +392,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>恶意程序样本共有3个文件：csc.exe，cscomp.dll以及cscomp.rom。</p>
-<img src="/2019/07/29/reverse-cscomp-dll/sample.png" title="sample">  
-<p>其中，csc.exe是微软.net组件，Visual C# Command Line Compiler；cscomp.dll为恶意DLL，利用DLL劫持，使csc.exe启动时被调用；cscomp.rom是一个加密文件。</p>
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><img src="/2019/07/29/reverse-cscomp-dll/run.png" title="run">
+<img src="/2019/07/29/reverse-cscomp-dll/sample.png" title="sample">
         
           <p class="article-more-link">
             <a href="/2019/07/29/reverse-cscomp-dll/#more">Read More</a>
@@ -363,7 +401,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/reverse-cscomp-dll/" data-id="ck4iilblw000a68k28i7opfro" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/29/reverse-cscomp-dll/" data-id="ck4m5m06j000czok2ubhl0ju9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reverse/">reverse</a></li></ul>
@@ -409,7 +447,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/hello-world/" data-id="ck4iilblj000568k2x3r9edeg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/29/hello-world/" data-id="ck4m5m0660005zok2aehlm2kk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -471,6 +509,10 @@
       <ul>
         
           <li>
+            <a href="/2019/12/25/reverse-bdreinit/">Malware Analyse 3 --- bdreninit dll hijacking</a>
+          </li>
+        
+          <li>
             <a href="/2019/12/22/reverse-mpsvc/">Malware Analyse 2 --- mpsvc</a>
           </li>
         
@@ -484,10 +526,6 @@
         
           <li>
             <a href="/2019/10/03/C-CommandLineParser/">C# CommandLineParser</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/03/SSH-Tunnel/">SSH Tunnel</a>
           </li>
         
       </ul>

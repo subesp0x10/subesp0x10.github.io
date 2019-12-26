@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="做XX项目的一个程序，需要A电脑上的一个程序发送UDP数据到X地址，在B电脑上使用WinPcap抓到这些数据包。 一开始发现自己的程序抓下来的包打印出来不对（字符串），但是Wireshark能正常打印。 1pcap_next_ex(handle, &amp;amp;header, &amp;amp;pkt_data);  查看pkt_data内存发现每隔一段地址就会插入一些奇怪的数据，计算开头到奇怪数据的间隔，得">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-12-23T13:53:51.172Z">
+<meta property="og:updated_time" content="2019-12-25T06:55:57.754Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WinPcap的IP报文分片&#x2F;重组问题">
 <meta name="twitter:description" content="做XX项目的一个程序，需要A电脑上的一个程序发送UDP数据到X地址，在B电脑上使用WinPcap抓到这些数据包。 一开始发现自己的程序抓下来的包打印出来不对（字符串），但是Wireshark能正常打印。 1pcap_next_ex(handle, &amp;amp;header, &amp;amp;pkt_data);  查看pkt_data内存发现每隔一段地址就会插入一些奇怪的数据，计算开头到奇怪数据的间隔，得">
@@ -97,6 +97,9 @@
 
 <p>查看pkt_data内存发现每隔一段地址就会插入一些奇怪的数据，计算开头到奇怪数据的间隔，得到1472，Google之，发现是MTU：</p>
 <p>以太网MTU是1500字节，1500-IP头（20字节）-（UDP头）8字节=1472，搞清楚问题出在哪里了，下面就是解决问题。</p>
+<a id="more"></a>
+
+
 <p>一、简单粗暴，每次发送的UDP数据不要超过1472，经测试可行。</p>
 <p>二、尝试自己重组？</p>
 <p>1.调用1次pcap_next_ex（），处理完pkt_data指向的所有数据？</p>
@@ -116,7 +119,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/03/WinPcap的IP报文分片-重组问题/" data-id="ck4iilblf000468k25i85b399" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/03/WinPcap的IP报文分片-重组问题/" data-id="ck4m5m0620004zok2elvo06e2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/note/">note</a></li></ul>
@@ -197,6 +200,10 @@
       <ul>
         
           <li>
+            <a href="/2019/12/25/reverse-bdreinit/">Malware Analyse 3 --- bdreninit dll hijacking</a>
+          </li>
+        
+          <li>
             <a href="/2019/12/22/reverse-mpsvc/">Malware Analyse 2 --- mpsvc</a>
           </li>
         
@@ -210,10 +217,6 @@
         
           <li>
             <a href="/2019/10/03/C-CommandLineParser/">C# CommandLineParser</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/03/SSH-Tunnel/">SSH Tunnel</a>
           </li>
         
       </ul>

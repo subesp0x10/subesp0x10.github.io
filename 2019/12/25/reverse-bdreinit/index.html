@@ -5,15 +5,27 @@
   
 
   
-  <title>Archives: 2019 | Hexo</title>
+  <title>Malware Analyse 3 --- bdreninit dll hijacking | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2019/index.html">
+  <meta name="description" content="恶意程序样本：    利用bitdefender组件bdreinit.exe的DLL劫持">
+<meta name="keywords" content="reverse">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Malware Analyse 3 --- bdreninit dll hijacking">
+<meta property="og:url" content="http://yoursite.com/2019/12/25/reverse-bdreinit/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="恶意程序样本：    利用bitdefender组件bdreinit.exe的DLL劫持">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/12/25/reverse-bdreinit/sample.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/25/reverse-bdreinit/export1.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/25/reverse-bdreinit/export2.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/25/reverse-bdreinit/virtualprotect.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/25/reverse-bdreinit/modifycode1.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/25/reverse-bdreinit/modifycode2.png">
+<meta property="og:updated_time" content="2019-12-26T03:14:38.056Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Malware Analyse 3 --- bdreninit dll hijacking">
+<meta name="twitter:description" content="恶意程序样本：    利用bitdefender组件bdreinit.exe的DLL劫持">
+<meta name="twitter:image" content="http://yoursite.com/2019/12/25/reverse-bdreinit/sample.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -60,173 +72,76 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/12/25/reverse-bdreinit/" class="archive-article-date">
-  <time datetime="2019-12-26T02:00:41.000Z" itemprop="datePublished">Dec 25</time>
+        <section id="main"><article id="post-reverse-bdreinit" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/25/reverse-bdreinit/" class="article-date">
+  <time datetime="2019-12-26T02:00:41.000Z" itemprop="datePublished">2019-12-25</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/reverse/">reverse</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/25/reverse-bdreinit/">Malware Analyse 3 --- bdreninit dll hijacking</a>
+    <h1 class="article-title" itemprop="name">
+      Malware Analyse 3 --- bdreninit dll hijacking
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/12/22/reverse-mpsvc/" class="archive-article-date">
-  <time datetime="2019-12-23T01:13:57.000Z" itemprop="datePublished">Dec 22</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/22/reverse-mpsvc/">Malware Analyse 2 --- mpsvc</a>
-    </h1>
-  
+        <p>恶意程序样本：</p>
+<img src="/2019/12/25/reverse-bdreinit/sample.png" title="sample">  
+<p>利用bitdefender组件<font color="blue">bdreinit.exe</font>的DLL劫持</p>
+<a id="more"></a>
+<h3 id="IDA"><a href="#IDA" class="headerlink" title="IDA"></a>IDA</h3><p>导出函数：</p>
+<img src="/2019/12/25/reverse-bdreinit/export1.png" title="sample">  
+<p>aPxbGs863函数跳转到GetMessageTime，没有意义</p>
+<img src="/2019/12/25/reverse-bdreinit/export2.png" title="sample">  
+<p>分析DllMain，发现只是将bdreinit.exe进程基址+0x2775偏移处的6个字节修改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">push offset sub_10001500</span><br><span class="line">ret</span><br></pre></td></tr></table></figure>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/11/19/python/" class="archive-article-date">
-  <time datetime="2019-11-20T06:54:16.000Z" itemprop="datePublished">Nov 19</time>
-</a>
+<br>
+<img src="/2019/12/25/reverse-bdreinit/virtualprotect.png" title="sample">  
+
+<h3 id="动态调试"><a href="#动态调试" class="headerlink" title="动态调试"></a>动态调试</h3><p>修改的代码刚好位于LoadLibraryW(L”log.dll”)之后</p>
+<img src="/2019/12/25/reverse-bdreinit/modifycode1.png" title="sample">  
+<p>修改后：</p>
+<img src="/2019/12/25/reverse-bdreinit/modifycode2.png" title="sample">  
+<p>这样，DllMain执行完就会跳转到sub_10001500里面去了</p>
+
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/19/python/">python</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/10/03/WinPcap的IP报文分片-重组问题/" class="archive-article-date">
-  <time datetime="2019-10-03T07:12:43.000Z" itemprop="datePublished">Oct 3</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/25/reverse-bdreinit/" data-id="ck4m5m06g000azok25una70l6" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/03/WinPcap的IP报文分片-重组问题/">WinPcap的IP报文分片/重组问题</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/10/03/C-CommandLineParser/" class="archive-article-date">
-  <time datetime="2019-10-03T07:07:31.000Z" itemprop="datePublished">Oct 3</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/03/C-CommandLineParser/">C# CommandLineParser</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reverse/">reverse</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/10/03/SSH-Tunnel/" class="archive-article-date">
-  <time datetime="2019-10-03T07:02:11.000Z" itemprop="datePublished">Oct 3</time>
-</a>
-      
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/03/SSH-Tunnel/">SSH Tunnel</a>
-    </h1>
   
+    <a href="/2019/12/22/reverse-mpsvc/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Malware Analyse 2 --- mpsvc</div>
+    </a>
+  
+</nav>
 
-    </header>
-  </div>
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/07/29/reverse-cscomp-dll/" class="archive-article-date">
-  <time datetime="2019-07-29T14:00:36.000Z" itemprop="datePublished">Jul 29</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/29/reverse-cscomp-dll/">Malware Analyse 1 --- cscomp</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/07/29/hello-world/" class="archive-article-date">
-  <time datetime="2019-07-29T11:00:00.000Z" itemprop="datePublished">Jul 29</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/29/hello-world/">Hello World</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
 
 </section>
         

@@ -7,13 +7,13 @@
   
   <title>Malware Analyse 1 --- cscomp | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="恶意程序样本共有3个文件：csc.exe，cscomp.dll以及cscomp.rom。    其中，csc.exe是微软.net组件，Visual C# Command Line Compiler；cscomp.dll为恶意DLL，利用DLL劫持，使csc.exe启动时被调用；cscomp.rom是一个加密文件。 运行">
+  <meta name="description" content="恶意程序样本共有3个文件：csc.exe，cscomp.dll以及cscomp.rom。">
 <meta name="keywords" content="reverse">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Malware Analyse 1 --- cscomp">
 <meta property="og:url" content="http://yoursite.com/2019/07/29/reverse-cscomp-dll/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="恶意程序样本共有3个文件：csc.exe，cscomp.dll以及cscomp.rom。    其中，csc.exe是微软.net组件，Visual C# Command Line Compiler；cscomp.dll为恶意DLL，利用DLL劫持，使csc.exe启动时被调用；cscomp.rom是一个加密文件。 运行">
+<meta property="og:description" content="恶意程序样本共有3个文件：csc.exe，cscomp.dll以及cscomp.rom。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2019/07/29/reverse-cscomp-dll/sample.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/29/reverse-cscomp-dll/run.png">
@@ -29,10 +29,10 @@
 <meta property="og:image" content="http://yoursite.com/2019/07/29/reverse-cscomp-dll/mem-dump.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/29/reverse-cscomp-dll/CFF-Explorer.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/29/reverse-cscomp-dll/loader.png">
-<meta property="og:updated_time" content="2019-12-23T13:51:00.640Z">
+<meta property="og:updated_time" content="2019-12-25T06:55:26.178Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Malware Analyse 1 --- cscomp">
-<meta name="twitter:description" content="恶意程序样本共有3个文件：csc.exe，cscomp.dll以及cscomp.rom。    其中，csc.exe是微软.net组件，Visual C# Command Line Compiler；cscomp.dll为恶意DLL，利用DLL劫持，使csc.exe启动时被调用；cscomp.rom是一个加密文件。 运行">
+<meta name="twitter:description" content="恶意程序样本共有3个文件：csc.exe，cscomp.dll以及cscomp.rom。">
 <meta name="twitter:image" content="http://yoursite.com/2019/07/29/reverse-cscomp-dll/sample.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -108,9 +108,10 @@
       
         <p>恶意程序样本共有3个文件：csc.exe，cscomp.dll以及cscomp.rom。</p>
 <img src="/2019/07/29/reverse-cscomp-dll/sample.png" title="sample">  
+<a id="more"></a>
 <p>其中，csc.exe是微软.net组件，Visual C# Command Line Compiler；cscomp.dll为恶意DLL，利用DLL劫持，使csc.exe启动时被调用；cscomp.rom是一个加密文件。</p>
 <h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><img src="/2019/07/29/reverse-cscomp-dll/run.png" title="run">  
-<a id="more"></a>
+
 <p>结合WireShark抓包，可知程序为IP-MAC扫描软件</p>
 <h2 id="cscomp-dll分析"><a href="#cscomp-dll分析" class="headerlink" title="cscomp.dll分析"></a>cscomp.dll分析</h2><h3 id="IDA分析"><a href="#IDA分析" class="headerlink" title="IDA分析"></a>IDA分析</h3><p>DLL有3个导出函数  </p>
 <img src="/2019/07/29/reverse-cscomp-dll/export.png" title="DLL Export">  
@@ -145,7 +146,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/reverse-cscomp-dll/" data-id="ck4iilblw000a68k28i7opfro" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/29/reverse-cscomp-dll/" data-id="ck4m5m06j000czok2ubhl0ju9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reverse/">reverse</a></li></ul>
@@ -226,6 +227,10 @@
       <ul>
         
           <li>
+            <a href="/2019/12/25/reverse-bdreinit/">Malware Analyse 3 --- bdreninit dll hijacking</a>
+          </li>
+        
+          <li>
             <a href="/2019/12/22/reverse-mpsvc/">Malware Analyse 2 --- mpsvc</a>
           </li>
         
@@ -239,10 +244,6 @@
         
           <li>
             <a href="/2019/10/03/C-CommandLineParser/">C# CommandLineParser</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/03/SSH-Tunnel/">SSH Tunnel</a>
           </li>
         
       </ul>
