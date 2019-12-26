@@ -6,10 +6,11 @@ categories: reverse
 ---
 恶意程序样本共有3个文件：csc.exe，cscomp.dll以及cscomp.rom。
 {% asset_img sample.png sample%}  
+<!--more-->
 其中，csc.exe是微软.net组件，Visual C# Command Line Compiler；cscomp.dll为恶意DLL，利用DLL劫持，使csc.exe启动时被调用；cscomp.rom是一个加密文件。
 ## 运行
 {% asset_img run.png run%}  
-<!--more-->
+
 结合WireShark抓包，可知程序为IP-MAC扫描软件
 ## cscomp.dll分析
 ### IDA分析
